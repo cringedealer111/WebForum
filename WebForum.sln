@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForum", "WebForum\WebForum.csproj", "{1276F9DA-6EB4-46E3-A409-D293C6DE1D0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebForum", "WebForum\WebForum.csproj", "{1276F9DA-6EB4-46E3-A409-D293C6DE1D0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForum.Data", "WebForum.Data\WebForum.Data.csproj", "{176648B3-E1BE-46E7-941C-13C0F6C168C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebForum.Data", "WebForum.Data\WebForum.Data.csproj", "{176648B3-E1BE-46E7-941C-13C0F6C168C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForum.Service", "WebForum.Service\WebForum.Service.csproj", "{33202FF6-67F7-4A79-AA26-F0EBBD71A9B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{176648B3-E1BE-46E7-941C-13C0F6C168C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{176648B3-E1BE-46E7-941C-13C0F6C168C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{176648B3-E1BE-46E7-941C-13C0F6C168C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33202FF6-67F7-4A79-AA26-F0EBBD71A9B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33202FF6-67F7-4A79-AA26-F0EBBD71A9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33202FF6-67F7-4A79-AA26-F0EBBD71A9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33202FF6-67F7-4A79-AA26-F0EBBD71A9B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
