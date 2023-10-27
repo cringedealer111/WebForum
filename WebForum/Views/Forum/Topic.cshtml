@@ -1,7 +1,14 @@
 ﻿@model ForumTopicModel;
 <h1>Добро пожаловать в @Model.Forum.Title форум!</h1>
 
-@if (Model.Posts.Any()){
+@if (Model.Posts.Any())
+{
+    <span id="headingBtn">
+        <a asp-controller="Post" asp-action="Create" asp-route-id="@Model.Forum.Id" class="btn btn-newPost">
+            Создать пост
+        </a>
+    </span>
+
     <table class="table table-bordered table-hover">
         <tbody>
         @foreach (var post in Model.Posts){
@@ -13,7 +20,7 @@
                     
                 </td>
                 <td>
-                    @post.AuthorName
+                    @post.AuthorName 
                 </td>
                 <td>
                     @post.DatePosted

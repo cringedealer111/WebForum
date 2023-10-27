@@ -11,7 +11,9 @@ namespace WebForum.Data.Models
         public int Id { get; set; }
         public string Content { get; set; }
         public DateTime Created { get; set; }
-        public Post Post { get; set; }
-        public ApplicationUser User { get; set; }
+        
+        
+        public virtual Post Post { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

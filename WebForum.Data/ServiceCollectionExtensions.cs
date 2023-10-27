@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using WebForum.Data.repositories;
+using WebForum.Data.Repositories;
 
 namespace WebForum.Data
 {
@@ -15,13 +13,11 @@ namespace WebForum.Data
                 options =>
                 {
                     options.UseSqlServer(connectionString);
-                },
-                ServiceLifetime.Transient
+                }
+                
             );
-            services.AddScoped<Dictionary<Type, ApplicationDbContext>>();
-            services.AddSingleton<DbContextFactory>();
-            services.AddSingleton<IForumRepository, ForumRepository>();
-            services.AddSingleton<IPostRepository, PostRepository>();
+            services.AddScoped<IForumRepository, ForumRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
 
             return services;
         }

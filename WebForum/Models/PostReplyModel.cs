@@ -14,18 +14,5 @@ namespace WebForum.Models
 
         public int PostId { get; set; }
 
-        public static IEnumerable<PostReplyModel> BuildPostReplies(IEnumerable<PostReply> replies)
-        {
-            return replies.Select(reply => new PostReplyModel
-            {
-                Id = reply.Id,
-                AuthorName = reply.User.UserName,
-                AuthorId = reply.User.Id,
-                AuthorImageUrl = reply.User.ProfileImageUrl,
-                AuthorRating = reply.User.Rating,
-                Created = reply.Created,
-                ReplyContent = reply.Content
-            });
-        }
     }
 }

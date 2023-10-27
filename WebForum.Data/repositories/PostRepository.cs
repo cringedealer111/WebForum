@@ -3,22 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using WebForum.Data.Models;
 
-namespace WebForum.Data.repositories
+namespace WebForum.Data.Repositories
 {
     public class PostRepository : IPostRepository
     {
-        private readonly DbContextFactory _dbContextFactory;
+        private readonly ApplicationDbContext _context;
 
-        public PostRepository(DbContextFactory dbContextFactory)
+        public PostRepository(ApplicationDbContext context)
         {
-            _dbContextFactory = dbContextFactory;
+            _context = context;
         }
 
         public Post GetById(int id)
         {
-            throw new NotImplementedException();
+
+            var post =  _context.Posts.Where(post => post.Id == id)
+                .Include(post => post.User)
+                .Include(post => post.Replies).ThenInclude(reply => reply.User)
+                .Include(post => post.Forum)
+                .FirstOrDefault();
+            return post;
         }
 
         public IEnumerable<Post> GetAll()
@@ -26,9 +34,11 @@ namespace WebForum.Data.repositories
             throw new NotImplementedException();
         }
 
-        public Task Add(Post post)
+        public async Task Add(Post post)
         {
-            throw new NotImplementedException();
+            _context.Posts.AddAsync(post);
+
+            await _context.SaveChangesAsync();
         }
 
         public Task Delete(int id)
@@ -43,8 +53,7 @@ namespace WebForum.Data.repositories
 
         public IEnumerable<Post> GetByForumId(int id)
         {
-            var context = _dbContextFactory.Create(typeof(PostRepository));
-            var posts = context.Forums
+            var posts = _context.Forums
                 .Where(forum => forum.Id == id)
                 .First().Posts;
             

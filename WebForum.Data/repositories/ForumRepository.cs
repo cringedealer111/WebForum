@@ -1,20 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebForum.Data.Models;
 
-namespace WebForum.Data.repositories
+namespace WebForum.Data.Repositories
 {
     public class ForumRepository : IForumRepository
     {
-        private readonly DbContextFactory _dbContextFactory;
+        private readonly ApplicationDbContext _context;
 
-        public ForumRepository(DbContextFactory dbContextFactory)
+        public ForumRepository(ApplicationDbContext context)
         {
-            _dbContextFactory = dbContextFactory;
+            _context = context;
         }
         public Forum GetById(int id)
         {
-            var context = _dbContextFactory.Create(typeof(ForumRepository));
-            var forum = context.Forums.Where(f => f.Id == id)
+            
+            var forum = _context.Forums.Where(f => f.Id == id)
                 .Include(f => f.Posts).ThenInclude(p => p.User)
                 .Include(f => f.Posts).ThenInclude(p => p.Replies).ThenInclude(r => r.User)
                 .FirstOrDefault();
@@ -24,8 +24,7 @@ namespace WebForum.Data.repositories
 
         public IEnumerable<Forum> GetAll()
         {
-            var context = _dbContextFactory.Create(typeof(ForumRepository));
-            return context.Forums
+            return _context.Forums
                 .Include(forum => forum.Posts);
         }
 

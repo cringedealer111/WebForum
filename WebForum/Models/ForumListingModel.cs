@@ -9,27 +9,5 @@ namespace WebForum.Models
         public string Description { get; set; }
         public string ImageUrl { get; set; }
 
-        public static ForumListingModel BuildForumListingModel(Post post)
-        {
-            var forum = post.Forum;
-
-            return new ForumListingModel
-            {
-                Id = forum.Id,
-                Title = forum.Title,
-                Description = forum.Description,
-                ImageUrl = forum.ImageUrl,
-            };
-        }
-        public static ForumListingModel BuildForumListingModel(Forum forum)
-        {
-            return new ForumListingModel
-            {
-                Id = forum.Id,
-                Title = forum.Title,
-                Description = forum.Description,
-                ImageUrl = forum.ImageUrl,
-            };
-        }
     }
 }

@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebForum.Data.Models;
-using WebForum.Data.repositories;
+using WebForum.Data.Repositories;
+
 
 namespace WebForum.Service
 {
@@ -22,5 +23,17 @@ namespace WebForum.Service
             var posts = _postRepository.GetByForumId(id);
             return posts;
         }
+
+        public Post GetPostById(int id)
+        {
+            var post = _postRepository.GetById(id);
+            return post;
+        }
+
+        public async Task Add(Post post)
+        {
+            await _postRepository.Add(post);
+        }
+
     }
 }

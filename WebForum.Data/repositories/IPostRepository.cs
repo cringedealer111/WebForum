@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebForum.Data.Models;
 
-namespace WebForum.Data.repositories
+namespace WebForum.Data.Repositories
 {
     public interface IPostRepository
     {

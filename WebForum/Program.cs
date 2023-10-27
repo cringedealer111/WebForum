@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using WebForum.AutoMapper.Profiles;
 using WebForum.Data;
 using WebForum.Data.Models;
-using WebForum.Data.repositories;
 using WebForum.Service;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +16,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddSingleton<ForumService>();
-builder.Services.AddSingleton <PostService>();
+builder.Services.AddScoped<ForumService>();
+builder.Services.AddScoped <PostService>();
+builder.Services.AddAutoMapper(typeof(ForumMappingProfile));
+builder.Services.AddAutoMapper(typeof(PostMappingProfile));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,11 +39,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Forum}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

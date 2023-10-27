@@ -1,6 +1,6 @@
 ﻿using System;
 using WebForum.Data.Models;
-using WebForum.Data.repositories;
+using WebForum.Data.Repositories;
 
 namespace WebForum.Service
 {

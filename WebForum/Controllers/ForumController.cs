@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WebForum.Data.repositories;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WebForum.Models;
 using WebForum.Service;
 
@@ -7,23 +7,21 @@ namespace WebForum.Controllers
 {
     public class ForumController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly ForumService _forumService;
         private readonly PostService _postService;
-        public ForumController(ForumService forumService, PostService postService)
+
+        public ForumController(ForumService forumService, PostService postService, IMapper mapper)
         {
+            _mapper = mapper;
             _postService = postService;
             _forumService = forumService;
         }
+
         public IActionResult Index()
         {
             var forums = _forumService.GetForums()
-                .Select(forum => new ForumListingModel
-                {
-                    Id=forum.Id,
-                    Title=forum.Title,
-                    Description = forum.Description,
-                    ImageUrl = forum.ImageUrl
-                });
+                .Select(forum => _mapper.Map<ForumListingModel>(forum));
 
             var model = new ForumIndexModel
             {
@@ -31,31 +29,19 @@ namespace WebForum.Controllers
             };
 
             return View(model);
-            
-
         }
+
         public IActionResult Topic(int id)
         {
             var forum = _forumService.GetForumById(id);
             var posts = forum.Posts;
 
-            var postListings = posts.Select(post => new PostListingModel
-            {
-                Id = post.Id,
-                AuthorId = post.User.Id,
-                AuthorName = post.User.UserName,
-                AuthorRating = post.User.Rating,
-                Title = post.Title,
-                DatePosted = post.Created.ToString(),
-                RepliesCount = post.Replies.Count(),
-                Forum = ForumListingModel.BuildForumListingModel(post)
-                
-            });
+            var postListings = posts.Select(post => _mapper.Map<PostListingModel>(post));
 
             var model = new ForumTopicModel
             {
                 Posts = postListings,
-                Forum = ForumListingModel.BuildForumListingModel(forum)
+                Forum = _mapper.Map<ForumListingModel>(forum)
             };
 
             return View(model);
